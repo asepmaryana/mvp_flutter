@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mvp_app/route/routes.dart';
 import 'package:mvp_app/view/contact_list_view.dart';
+import 'package:mvp_app/view/event_list_view.dart';
+import 'package:mvp_app/view/note_list_view.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,11 +22,16 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.indigo,
       ),
       //home: MyHomePage(title: 'Flutter Demo Home Page'),
-      home: ContactPage(),
+      home: ContactsPage(),
       debugShowCheckedModeBanner: false,
+      routes: {
+        Routes.contacts : (context) => ContactsPage(),
+        Routes.events : (context) => EventPage(),
+        Routes.notes : (context) => NotePage()
+      },
     );
   }
 }

@@ -1,34 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:mvp_app/model/contact_model.dart';
 import 'package:mvp_app/presenter/contact_list_presenter.dart';
+import 'package:mvp_app/view/contact_detail_view.dart';
 
-class ContactPage extends StatelessWidget {
+class ContactsPage extends StatelessWidget {
+  
+  static const String routeName = '/contact';
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('Contacts'),
       ),
-      body: ContactList(),
+      body: ContactsList(),
     );
   }
 }
 
-class ContactList extends StatefulWidget {
+class ContactsList extends StatefulWidget {
   
-  ContactList({Key key}) : super(key:key);
+  ContactsList({Key key}) : super(key:key);
 
   @override
-  ContactListState createState() => new ContactListState();
+  ContactsListState createState() => new ContactsListState();
 }
 
-class ContactListState extends State<ContactList> implements ContactListViewContract {
+class ContactsListState extends State<ContactsList> implements ContactListViewContract {
 
   ContactListPresenter _presenter;
   List<Contact> _contacts;
   bool _isLoading;
 
-  ContactListState() {
+  ContactsListState() {
     _presenter = ContactListPresenter(this);
   }
 
@@ -73,6 +77,19 @@ class ContactListState extends State<ContactList> implements ContactListViewCont
   }
 
   List<ContactListItem> buildContactList() {
-    return _contacts.map((contact) => ContactListItem(contact)).toList();
+    //return _contacts.map((contact) => ContactListItem(contact)).toList();
+    return _contacts.map((contact) => new ContactListItem(
+      contact: contact, 
+      onTap: (){
+        showContactPage(context, contact);
+      }))
+      .toList();
+  }
+
+  void showContactPage(BuildContext context, Contact contact) {
+    Navigator.push(context, new MaterialPageRoute<Null>(
+      settings: const RouteSettings(name: ContactPage.routeName),
+      builder: (BuildContext context) => new ContactPage(contact)
+    ));
   }
 }

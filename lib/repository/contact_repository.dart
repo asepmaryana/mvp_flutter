@@ -30,6 +30,8 @@ class RandomUserRepository implements ContactRepository {
       .toList();
   }
 
+  RandomUserRepository();
+  
   static RandomUserRepository _instance;
   RandomUserRepository._internal();
   static RandomUserRepository getInstance() {

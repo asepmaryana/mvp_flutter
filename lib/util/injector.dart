@@ -21,8 +21,8 @@ class Injector {
 
   ContactRepository get contactRepository {
     switch(_flavor) {
-      case Flavor.MOCK: return MockContactRepository();
-      default: return RandomUserRepository();
+      case Flavor.MOCK: return new MockContactRepository();
+      default: return new RandomUserRepository();
     }
   }
 }
