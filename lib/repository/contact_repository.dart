@@ -30,6 +30,12 @@ class RandomUserRepository implements ContactRepository {
       .toList();
   }
 
+  static RandomUserRepository _instance;
+  RandomUserRepository._internal();
+  static RandomUserRepository getInstance() {
+    if(_instance == null) _instance = RandomUserRepository._internal();
+    return _instance;
+  }
 }
 
 const kContacts = <Contact>[
